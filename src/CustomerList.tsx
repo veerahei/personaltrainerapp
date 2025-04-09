@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
+
 import { AgGridReact } from "ag-grid-react";
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
-import { ColDef } from "ag-grid-community"
-
-import { useEffect, useState } from "react";
+import { ColDef } from "ag-grid-community";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
