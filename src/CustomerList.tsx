@@ -6,6 +6,7 @@ import { ColDef } from "ag-grid-community";
 import Button from "@mui/material/Button";
 
 import AddCustomer from "./AddCustomer";
+import EditCustomer from "./EditCustomer";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -62,6 +63,13 @@ function CustomerList() {
         { field: "email", filter: true },
         { field: "phone", filter: true },
         {
+            cellRenderer: (params: ICellRendererParams<TCustomerData>) =>
+                <EditCustomer
+                    currentCustomer={params.data as TCustomerData}
+                    updateCustomer={updateCustomer}
+                />
+        },
+        {
             field: "_links.self.href",
             headerName: "",
             cellRenderer: (params: ICellRendererParams) => {
@@ -111,12 +119,26 @@ function CustomerList() {
             .catch(error => console.log(error))
     }
 
+    const updateCustomer = (customer: TCustomer, url: string) => {
+        const options = {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customer)
+        };
+
+        fetch(url, options)
+            .then(() => fetchCustomers())
+            .catch(error => console.log(error));
+    }
+
     //Use useEffect to call fetchCustomers function
     useEffect(fetchCustomers, []);
 
     return (
         <>
-        <AddCustomer addCustomer = {addCustomer}/>
+            <AddCustomer addCustomer={addCustomer} />
             <div style={{ width: 1500, height: 700 }}>
                 <AgGridReact<TCustomerData>
                     rowData={customers}
