@@ -5,13 +5,15 @@ import { AllCommunityModule, ICellRendererParams, ModuleRegistry } from 'ag-grid
 import { ColDef } from "ag-grid-community";
 import Button from "@mui/material/Button";
 
+import AddCustomer from "./AddCustomer";
+
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 //Base url
 const BASE_URL = 'https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api';
 
-//Define type for customer data
+//Define type for customer data with links
 export type TCustomerData = {
     firstname: string;
     lastname: string;
@@ -31,8 +33,19 @@ export type TCustomerData = {
             href: string;
         }
     }
-
 }
+
+//Define type for plain customer data without links (fe. to add customer)
+export type TCustomer = {
+    firstname: string;
+    lastname: string;
+    streetaddress: string;
+    postcode: string;
+    city: string;
+    email: string;
+    phone: string;
+}
+
 
 function CustomerList() {
 
@@ -83,11 +96,27 @@ function CustomerList() {
             .catch(error => console.log(error));
     }
 
+    //Add customer. Function gets Customer Data from user. This function only does the fetch. Getting customer data done in another file
+    const addCustomer = (customer: TCustomer) => {
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customer)
+        };
+        //Make post request
+        fetch(`${BASE_URL}/customers`, options)
+            .then(() => fetchCustomers()) //If add customer succeeds, fetch all customers
+            .catch(error => console.log(error))
+    }
+
     //Use useEffect to call fetchCustomers function
     useEffect(fetchCustomers, []);
 
     return (
         <>
+        <AddCustomer addCustomer = {addCustomer}/>
             <div style={{ width: 1500, height: 700 }}>
                 <AgGridReact<TCustomerData>
                     rowData={customers}
