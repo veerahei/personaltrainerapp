@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
+import AddTraining from "./AddTraining";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -47,6 +48,13 @@ export type TCustomer = {
     phone: string;
 }
 
+//Define type for training data, to add training to a customer
+export type TTraining = {
+    date: string;
+    activity: string;
+    duration: number;
+    customer: string;
+}
 
 function CustomerList() {
 
@@ -62,6 +70,14 @@ function CustomerList() {
         { field: "city", filter: true },
         { field: "email", filter: true },
         { field: "phone", filter: true },
+        {
+            cellRenderer: (params: ICellRendererParams) =>
+                <AddTraining
+                    addTraining={addTraining}
+                    customerUrl={params.data._links.self.href}
+                />
+
+        },
         {
             cellRenderer: (params: ICellRendererParams<TCustomerData>) =>
                 <EditCustomer
@@ -131,6 +147,22 @@ function CustomerList() {
         fetch(url, options)
             .then(() => fetchCustomers())
             .catch(error => console.log(error));
+    }
+
+    //Addtraining function gets the added training's data as props
+    const addTraining = (training: TTraining) => {
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(training)
+        }
+
+        fetch(`${BASE_URL}/trainings`, options)
+            .then(() => fetchCustomers())
+            .catch(error => console.log(error));
+
     }
 
     //Use useEffect to call fetchCustomers function
