@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { AgGridReact } from "ag-grid-react";
-import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import { AllCommunityModule, ICellRendererParams, ModuleRegistry } from 'ag-grid-community';
 import { ColDef } from "ag-grid-community";
 
 import dayjs from "dayjs";
+import { Button } from "@mui/material";
 
 
 // Register all Community features
@@ -43,9 +44,33 @@ function TrainingList() {
             filter: true,
             valueGetter: (params) =>
                 params.data.customer.firstname + " " + params.data.customer.lastname
-
+        },
+        {
+            field: "id",
+            headerName: "",
+            cellRenderer: (params: ICellRendererParams) => {
+                return <Button onClick={() => confirmDelete(params.value)}>Delete</Button>
+            } //HUOM poisto käyttää id:tä, joka tulee gettrainings-pyynnössä erillisenä, EI linkkinä
         }
     ])
+
+    const confirmDelete = (id: number) => {
+        if (window.confirm("Do you want to delete?")) {
+            deleteTraining(id);
+        }
+    }
+
+    const deleteTraining = (id: number) => {
+        const options = {
+            method: "DELETE"
+        };
+
+        fetch(`${BASE_URL}/trainings/${id}`, options)
+            .then(() => fetchTrainings())
+            .catch(error => console.log(error))
+
+    }
+
 
     //Use useEffect to call fetchTrainings function
     useEffect(fetchTrainings, []);
@@ -56,6 +81,7 @@ function TrainingList() {
                 <AgGridReact
                     rowData={trainings}
                     columnDefs={columnDefs}
+                    getRowId={params => params.data.id}
                 />
             </div>
         </>
