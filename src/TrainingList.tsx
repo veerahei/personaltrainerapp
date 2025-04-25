@@ -35,7 +35,7 @@ function TrainingList() {
             field: "date",
             filter: true,
             valueFormatter: (params) =>
-                dayjs(params.value).format("DD.MM.YYYY hh:mm")
+                dayjs(params.value).format("DD.MM.YYYY hh:mm A")
         },
         { field: "duration", filter: true },
         { field: "activity", filter: true },
@@ -50,7 +50,7 @@ function TrainingList() {
             headerName: "",
             cellRenderer: (params: ICellRendererParams) => {
                 return <Button onClick={() => confirmDelete(params.value)}>Delete</Button>
-            } //HUOM poisto käyttää id:tä, joka tulee gettrainings-pyynnössä erillisenä, EI linkkinä
+            } //Delete functionality uses id to get the specific training. In GET/gettrainings request the id is a plain value, not a link
         }
     ])
 

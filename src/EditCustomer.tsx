@@ -9,7 +9,7 @@ import { ChangeEvent, useState } from 'react';
 
 import { TCustomer, TCustomerData } from './CustomerList';
 
-//Row data is in currentcar
+
 type TEditCustomerProps = {
     currentCustomer: TCustomerData;
     updateCustomer: (customer: TCustomer, url: string) => void;
@@ -64,7 +64,7 @@ export default function EditCustomer({ currentCustomer, updateCustomer }: TEditC
                     },
                 }}
             >
-                <DialogTitle>Edit car</DialogTitle>
+                <DialogTitle>Edit customer</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus

@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";
+import { Dayjs } from "dayjs";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -50,9 +51,9 @@ export type TCustomer = {
 
 //Define type for training data, to add training to a customer
 export type TTraining = {
-    date: string;
+    date: Dayjs | null;
     activity: string;
-    duration: number;
+    duration: string;
     customer: string;
 }
 
