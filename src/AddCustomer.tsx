@@ -27,7 +27,7 @@ export default function AddCustomer({ addCustomer }: TAddCustomerProps) {
         setOpen(false);
     };
 
-    //HandleChange saves the input. ChangeEvent<HTMLInputElement> is the type of inout. 
+    //HandleChange saves the input. ChangeEvent<HTMLInputElement> is the type of input. 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setCustomer({ ...customer, [event.target.name]: event.target.value })
     }

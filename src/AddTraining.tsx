@@ -8,17 +8,23 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ChangeEvent, useState } from 'react';
 import { TTraining } from './CustomerList';
 
-//Add training takes the function and the customer url as props
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
+import dayjs, { Dayjs } from 'dayjs';
+
+//AddTraining function takes the addTraining function and the customer url as props
 type TAddTrainingProps = {
     addTraining: (training: TTraining) => void;
     customerUrl: string;
 }
 
 
-export default function AddTraining({ addTraining, customerUrl }: TAddTrainingProps) { //Välitetään addTraining funktio jossa tehdään post pyyntö, tähän AddTraining funktioon, jossa lomake on. Välitetään myös customerUrl
+export default function AddTraining({ addTraining, customerUrl }: TAddTrainingProps) { //AddTraining function takes the addTraining function and the customer url as props
     const [open, setOpen] = useState(false);
-    const [training, setTraining] = useState({ //Collect input data for training in training variable. In form all input types are string
-        date: "",
+    const [training, setTraining] = useState<TTraining>({ //Collect input data for training in training variable. In form all input types are string
+        date: dayjs(), //save date to training variable as dayjs
         activity: "",
         duration: "",
         customer: ""
@@ -37,6 +43,11 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
         setTraining({ ...training, [event.target.name]: event.target.value })
     }
 
+    const handleDateChange = (dateValue: Dayjs | null) => {
+        setTraining({ ...training, date: dateValue })
+    }
+
+
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -50,10 +61,10 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
                         component: 'form',
                         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                             event.preventDefault();
+
                             addTraining({
                                 ...training,
-                                duration: Number(training.duration), //change duration from string to number
-                                customer: customerUrl, //Asetetaan propsina saatu customerUrl customerin arvoksi. Sitä ei lisätä lomakkeella inputtina
+                                customer: customerUrl, //Set customerUrl as the customer value in training statevariable. CustomerUrl is passed as props from table, not as user input. 
                             })
                             handleClose();
                         },
@@ -62,19 +73,17 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
             >
                 <DialogTitle>Add training</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        required
-                        margin="dense"
-                        id="date"
-                        name="date"
-                        label="Date"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                        value={training.date}
-                    />
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                            label="Date"
+                            defaultValue={dayjs()}
+                            value={training.date || dayjs()}
+                            onChange={dateValue => handleDateChange(dateValue)}
+
+                        />
+                    </LocalizationProvider>
+
                     <TextField
                         required
                         margin="dense"
@@ -100,6 +109,7 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
                         value={training.duration}
                     />
                 </DialogContent>
+
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button type="submit">Add training</Button>
