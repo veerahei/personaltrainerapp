@@ -172,7 +172,7 @@ function CustomerList() {
     return (
         <>
             <AddCustomer addCustomer={addCustomer} />
-            <div style={{ width: 1500, height: 700 }}>
+            <div style={{ width: 2000, height: 700 }}>
                 <AgGridReact<TCustomerData>
                     rowData={customers}
                     columnDefs={columnDefs}
