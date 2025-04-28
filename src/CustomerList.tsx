@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { AgGridReact } from "ag-grid-react";
 import { AllCommunityModule, ICellRendererParams, ModuleRegistry } from 'ag-grid-community';
@@ -92,9 +92,11 @@ function CustomerList() {
             cellRenderer: (params: ICellRendererParams) => {
                 return <Button onClick={() => confirmDelete(params.value)}>Delete</Button>
             }
+
         }
     ])
 
+    const gridRef = useRef<AgGridReact>(null);
 
     //Function to fetch customer data
     const fetchCustomers = () => {
@@ -166,14 +168,26 @@ function CustomerList() {
 
     }
 
+    const onBtnExport = useCallback(() => {
+
+        //Define the columns that will be exported to csv file
+        const columns = {
+            columnKeys: ['firstname', 'lastname', 'streetaddress', 'postcode', 'city', 'email', 'phone']
+        };
+
+        gridRef.current!.api.exportDataAsCsv(columns);
+    }, []);
+
     //Use useEffect to call fetchCustomers function
     useEffect(fetchCustomers, []);
 
     return (
         <>
             <AddCustomer addCustomer={addCustomer} />
+            <Button variant="outlined" onClick={onBtnExport}>Export customer data to CSV</Button>
             <div style={{ width: 2000, height: 700 }}>
                 <AgGridReact<TCustomerData>
+                    ref={gridRef}
                     rowData={customers}
                     columnDefs={columnDefs}
                     getRowId={params => params.data._links.self.href} //Specify rowid for ag grid table. RowId is customers link to itself (that includes customerId). Without this couldn't render the table again after deletion
