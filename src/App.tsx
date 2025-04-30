@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography"
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import React from 'react'
+import { CalendarView } from './CalendarView'
 
 
 
@@ -29,10 +30,12 @@ function App() {
       <Tabs value={tabValue} onChange={(_, value) => setTabValue(value)}>
         <Tab label="Customers"></Tab>
         <Tab label="Trainings"></Tab>
+        <Tab label="Calendar"></Tab>
       </Tabs>
       {
         tabValue === 0 && < CustomerList /> ||
-        tabValue === 1 && < TrainingList />
+        tabValue === 1 && < TrainingList /> ||
+        tabValue === 2 && <CalendarView />
       }
 
     </>
