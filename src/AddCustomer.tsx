@@ -7,9 +7,9 @@ type TAddCustomerProps = {
     addCustomer: (customer: TCustomer) => void;
 }
 
-export default function AddCustomer({ addCustomer }: TAddCustomerProps) {
+export default function AddCustomer({ addCustomer }: TAddCustomerProps) {//Addcustomer takes the addCustomer function (with fetch) as props
     const [open, setOpen] = useState(false);
-    const [customer, setCustomer] = useState({ 
+    const [customer, setCustomer] = useState({ //Collects input data
         firstname: "",
         lastname: "",
         email: "",

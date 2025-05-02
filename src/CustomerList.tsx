@@ -105,6 +105,7 @@ function CustomerList() {
             .then(data => setCustomers(data._embedded.customers))
             .catch(error => console.log(error));
     }
+    
     //Confirm customer deletion
     const confirmDelete = (url: string) => {
         if (window.confirm("Do you want to delete?")) {
@@ -138,6 +139,7 @@ function CustomerList() {
             .catch(error => console.log(error))
     }
 
+    //Update customer
     const updateCustomer = (customer: TCustomer, url: string) => {
         const options = {
             method: "PUT",
@@ -168,8 +170,8 @@ function CustomerList() {
 
     }
 
+    //Export into csv
     const onBtnExport = useCallback(() => {
-
         //Define the columns that will be exported to csv file
         const columns = {
             columnKeys: ['firstname', 'lastname', 'streetaddress', 'postcode', 'city', 'email', 'phone']

@@ -38,11 +38,12 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
         setOpen(false);
     };
 
-
+    //HandleChange saves the input.
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTraining({ ...training, [event.target.name]: event.target.value })
     }
 
+    //HandleDateChange saves the date input.
     const handleDateChange = (dateValue: Dayjs | null) => {
         setTraining({ ...training, date: dateValue })
     }
@@ -73,7 +74,7 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
             >
                 <DialogTitle>Add training</DialogTitle>
                 <DialogContent>
-
+                    {/*Form field for date input */}
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                             label="Date"
@@ -83,7 +84,7 @@ export default function AddTraining({ addTraining, customerUrl }: TAddTrainingPr
 
                         />
                     </LocalizationProvider>
-
+                    {/*Form fields for other inputs */}
                     <TextField
                         required
                         margin="dense"

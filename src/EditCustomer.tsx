@@ -9,14 +9,14 @@ import { ChangeEvent, useState } from 'react';
 
 import { TCustomer, TCustomerData } from './CustomerList';
 
-
+//Props for EditCustomer function
 type TEditCustomerProps = {
     currentCustomer: TCustomerData;
     updateCustomer: (customer: TCustomer, url: string) => void;
 }
 
 
-export default function EditCustomer({ currentCustomer, updateCustomer }: TEditCustomerProps) {
+export default function EditCustomer({ currentCustomer, updateCustomer }: TEditCustomerProps) {//EditCustomer function gets currentCustomer and updateCustomer function as props
     const [open, setOpen] = useState(false);
 
     //Fill form data with currennt customer's data
@@ -55,7 +55,7 @@ export default function EditCustomer({ currentCustomer, updateCustomer }: TEditC
                         component: 'form',
                         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                             event.preventDefault();
-                            updateCustomer({
+                            updateCustomer({ //updateCustomer function (with fetch) gets modified customer data and current customer's url
                                 ...customer,
 
                             }, currentCustomer._links.self.href)

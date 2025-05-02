@@ -44,7 +44,7 @@ export function CalendarView() {
             <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin]}
                 initialView='dayGridMonth'
-                events={events} //Defines what events is seen in calendar
+                events={events} //Defines what events are seen in calendar
                 headerToolbar={{ //Add header with view buttons and title (date or month)
                     start: 'dayGridMonth,timeGridWeek,timeGridDay', //Defines which views are possible
                     center: 'title',

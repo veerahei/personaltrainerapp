@@ -26,7 +26,7 @@ function App() {
           <Typography variant="h6">PersonalTrainer</Typography>
         </Toolbar>
       </AppBar>
-
+      {/*Navigation for app */}
       <Tabs value={tabValue} onChange={(_, value) => setTabValue(value)}>
         <Tab label="Customers"></Tab>
         <Tab label="Trainings"></Tab>
