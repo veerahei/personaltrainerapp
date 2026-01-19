@@ -1,54 +1,45 @@
-# React + TypeScript + Vite
+## Personal Trainer Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React front end personal trainer application for managing customers and scheduling trainings.
 
-Currently, two official plugins are available:
+### Project background
+This is a final project for Front end programming course. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Project task: Personal trainer company needs a user interface for their existing back end that stores customers and their trainings. The backend provides a REST API and documentation for implementing the front-end app.
 
-## Expanding the ESLint configuration
+### Features
+-	View, add, edit and delete customers
+-	Schedule training appointments to customers
+-	Calendar view: view scheduled trainings in a calendar
+-	Export customer data to CSV
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Screenshots
+<img width="1900" height="478" alt="Näyttökuva 2026-01-19 135054" src="https://github.com/user-attachments/assets/09f88b08-6a5e-4015-8950-6a99ea11a553" />
+
+<img width="1907" height="723" alt="image" src="https://github.com/user-attachments/assets/ff89bd9d-0433-4752-bb3e-dda35c4cbab3" />
+
+<img width="925" height="592" alt="Näyttökuva 2026-01-19 135104" src="https://github.com/user-attachments/assets/540095de-9d9d-4632-9942-81ff86166c0e" />
+
+<img width="1902" height="808" alt="Näyttökuva 2026-01-19 135145" src="https://github.com/user-attachments/assets/6ff8305a-ab50-4e50-b38b-e354f8afd601" />
+
+
+### Built with
+- React, TypeScript, Vite
+- MaterialUI, FullCalendar
+- REST API
+
+### Getting started
+Clone the repository
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+git clone https://github.com/veerahei/personaltrainerapp.git
+cd personaltrainerapp
+```
+Install dependencies
+```
+npm install
+```
+Run in development mode
+```
+npm run dev
 ```
